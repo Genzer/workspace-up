@@ -1,10 +1,9 @@
-- name: Installing AWS CLI
-  shell: python3 -m pip install awscli
-
 - name: Install Tmux Plugin Manager  
   git:
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
+    ssh_opts: '-o StrictHostKeyChecking=no'
+    update: False
 
 - name: Create symlink ~/work/journals to Google Drive journals
   file:
@@ -12,10 +11,18 @@
     dest: "{{ lookup('env', 'HOME') }}/work/journals"
     state: link
 
-- name: Install Mac "Be Focused"
-  # Originally, I used `mas install 973134470`.
-  # The id `973134470` comes from the command
-  # `mas search "Be Focused"`
-  # However, `mas` supports a `lucky` command which
-  # install the first result in the search. So...
-  shell: "mas lucky 'Be Focused'"
+- name: Is Finder show all hidden files?
+  shell: defaults read com.apple.finder AppleShowAllFiles
+  register: finder_show_all_files
+  changed_when: False
+
+- name: set MacOS to show hidden files/directories
+  when: finder_show_all_files.stdout != '1'
+  shell: defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder
+
+- name: Install Mac OS Applications from AppStore
+  include_tasks: install_mac_os_applications.yaml
+  vars:
+    app: "{{ item }}"
+  loop:
+    - "Be Focused"

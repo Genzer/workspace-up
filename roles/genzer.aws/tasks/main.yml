@@ -1,0 +1,10 @@
+- name: Check installed awscli
+  shell: >
+    command -v aws >/dev/null 2>&1 && aws --version \
+      | grep --only-matching 'aws-cli\/.*\sPython' | sed 's/aws-cli\///g' | sed 's/ Python//g'
+  register: aws_check
+  changed_when: False
+
+- name: Installing AWS CLI
+  shell: python3 -m pip install awscli
+  when: aws_check.rc == 1 or aws_check.rc == 127 or aws_check.stdout is version('1.16.310', '<=')

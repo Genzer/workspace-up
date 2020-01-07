@@ -1,0 +1,9 @@
+# This tasks assumes that VSC is already installed.
+# Copied from:
+# https://github.com/ansible-macos/macos-playbook/blob/master/roles/developer-vscode/tasks/main.yml
+- name: Installing Visual Studio Code Extensions
+  shell: code --install-extension {{ item }}
+  register: vscode_installed_extension
+  changed_when: "'was successfully installed' in vscode_installed_extension.stdout"
+  with_items:
+    - "{{ default_vscode_extensions }}"
