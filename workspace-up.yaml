@@ -13,6 +13,7 @@
       - tmux
       - zsh
       - thefuck
+      - ack
       - jenv
       - awscli
       # An awesome utility to ovewrite default `/bin/rm`
