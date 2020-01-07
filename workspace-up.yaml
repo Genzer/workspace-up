@@ -1,0 +1,60 @@
+- name: Install all applications using Homebrew cask.
+  hosts: localhost
+  vars:
+
+    homebrew_taps:
+      - homebrew/core
+      - homebrew/cask-versions
+      - homebrew/cask-fonts
+
+    homebrew_installed_packages:
+      - { name: vim, install_option: "with-override-system-vim" }
+      - git
+      - tmux
+      - zsh
+      - thefuck
+      - jenv
+      - awscli
+      # An awesome utility to ovewrite default `/bin/rm`
+      # so that deleted files/directories go to the Trash
+      # instead of being permanently deleted.
+      - trash
+      # utility for installing MacOS application from Store
+      # https://github.com/mas-cli/mas
+      - mas
+
+    homebrew_cask_apps:
+      - google-chrome
+      - sublime-text 
+      - iterm2
+      - skype
+      - postman
+      - visual-studio-code
+      - slack
+      - viscosity
+      - vlc
+      - keka
+      - the-unarchiver
+      - franz
+      - xquartz
+      - typora
+      - teamviewer
+      - snagit
+      - enpass
+      - onedrive
+      - keycastr
+      - docker
+      - balsamiq-mockups
+      - font-fira-mono
+      - font-fira-mono-for-powerline
+      - google-backup-and-sync
+      - gas-mask
+
+  roles:
+    - geerlingguy.homebrew
+
+- name: Setting up workspace.
+  hosts: localhost
+  roles:
+    - genzer.workspace
+

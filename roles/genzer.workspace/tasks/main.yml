@@ -1,0 +1,21 @@
+- name: Installing AWS CLI
+  shell: python3 -m pip install awscli
+
+- name: Install Tmux Plugin Manager  
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+
+- name: Create symlink ~/work/journals to Google Drive journals
+  file:
+    src: "{{ lookup('env', 'HOME') }}/genzer_hawker/google_drive/genzerhawker/journals"
+    dest: "{{ lookup('env', 'HOME') }}/work/journals"
+    state: link
+
+- name: Install Mac "Be Focused"
+  # Originally, I used `mas install 973134470`.
+  # The id `973134470` comes from the command
+  # `mas search "Be Focused"`
+  # However, `mas` supports a `lucky` command which
+  # install the first result in the search. So...
+  shell: "mas lucky 'Be Focused'"
