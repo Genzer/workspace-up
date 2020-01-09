@@ -23,6 +23,8 @@
       # utility for installing MacOS application from Store
       # https://github.com/mas-cli/mas
       - mas
+      - hadolint
+      - nvm
 
     homebrew_cask_apps:
       - google-chrome
@@ -50,6 +52,11 @@
       - font-fira-mono-for-powerline
       - google-backup-and-sync
       - gas-mask
+
+  pre_tasks:
+    - name: Ensure ask-become-pass is working
+      shell: id
+      become: True
 
   roles:
     - geerlingguy.homebrew

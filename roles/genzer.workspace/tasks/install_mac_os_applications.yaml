@@ -3,8 +3,9 @@
     - name: Check if {{ app }} is installed
       shell: "mas list | grep -oq '{{ app }}'"
       register: mas_install_check
+      ignore_errors: True
       changed_when: False
 
     - name: Install {{ app }}
       when: mas_install_check.rc != 0
-      shell: "mas lucky {{ app }}"
+      shell: "mas lucky '{{ app }}'"
