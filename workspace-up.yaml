@@ -52,6 +52,7 @@
       - font-fira-mono-for-powerline
       - google-backup-and-sync
       - gas-mask
+      - adobe-acrobat-reader
 
   pre_tasks:
     - name: Ensure ask-become-pass is working
