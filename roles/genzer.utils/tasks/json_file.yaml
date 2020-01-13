@@ -1,0 +1,26 @@
+- name: Update JSON file
+  # vars:
+  #   dest - the destination file 
+  #   update_content - the text content in JSON format
+  block:
+    - name: "Read existing {{ dest }}"
+      include_vars:
+        file: "{{ dest }}"
+        name: original_content_dict
+
+    - name: Convert update content to JSON object
+      set_fact:
+        update_content_dict: "{{ update_content | from_json }}"
+
+    - name: Apply update_content to original content
+      set_fact:
+        final_merged_content: "{{ original_content_dict | combine(update_content_dict) }}"
+
+    - debug:
+        var: final_merged_content
+        verbosity: 2
+
+    - name: "Write to {{ dest }}"
+      copy:
+        content: "{{ final_merged_content | to_nice_json }}"
+        dest: "{{ dest }}"

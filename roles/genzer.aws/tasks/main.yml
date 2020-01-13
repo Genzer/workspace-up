@@ -8,3 +8,22 @@
 - name: Installing AWS CLI
   shell: python3 -m pip install awscli
   when: aws_check.rc == 1 or aws_check.rc == 127 or aws_check.stdout is version('1.16.310', '<=')
+
+- name: Installing docker-credential-helper-ecr
+  homebrew:
+    name: docker-credential-helper-ecr
+    state: present
+    update_homebrew: True
+
+- name: Configure ~/.docker/config.json to use the ecr-login
+  import_role:
+    name: genzer.utils
+    tasks_from: json_file
+  vars:
+    dest: "~/.docker/config.json"
+    update_content: |
+      {
+        "credHelpers": {
+          "031813119665.dkr.ecr.ap-southeast-1.amazonaws.com": "ecr-login"
+        }
+      }
