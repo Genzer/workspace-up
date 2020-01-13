@@ -80,8 +80,17 @@
   tags:
     - workspace
   roles:
-    - genzer.workspace
-    - { role: genzer.terminal, tags: ['terminal'] }
-    - { role: genzer.aws, tags: ['aws'] }
-    - { role: genzer.vscode, tags: ['vscode'] }
+    - role: genzer.workspace
+      tags:
+        - workspace
+
+    - role: genzer.terminal
+      tags:
+        - terminal
+
+    - role: genzer.aws
+      tags: ['aws']
+
+    - role: genzer.vscode
+      tags: ['vscode']
 
