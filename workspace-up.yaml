@@ -1,5 +1,7 @@
 - name: Install all applications using Homebrew cask.
   hosts: localhost
+  tags:
+    - installing-apps
   vars:
 
     homebrew_taps:
@@ -25,6 +27,15 @@
       - mas
       - hadolint
       - nvm
+      - findutils
+      - todo-txt
+      - watch
+      - tree
+
+    homebrew_uninstalled_packages:
+      # antigen slows down the startup time of zsh.
+      - antigen
+      - powerlevel9k
 
     homebrew_cask_apps:
       - google-chrome
@@ -53,6 +64,8 @@
       - google-backup-and-sync
       - gas-mask
       - adobe-acrobat-reader
+      - robo-3t
+      - font-hack-nerd-font
 
   pre_tasks:
     - name: Ensure ask-become-pass is working
@@ -64,8 +77,11 @@
 
 - name: Setting up workspace.
   hosts: localhost
+  tags:
+    - workspace
   roles:
     - genzer.workspace
-    - genzer.aws
-    - genzer.vscode
+    - { role: genzer.terminal, tags: ['terminal'] }
+    - { role: genzer.aws, tags: ['aws'] }
+    - { role: genzer.vscode, tags: ['vscode'] }
 
