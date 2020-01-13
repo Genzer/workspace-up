@@ -1,4 +1,6 @@
-- name: Install Tmux Plugin Manager  
+- name: Install Tmux Plugin Manager
+  tags:
+    - tmux
   git:
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm

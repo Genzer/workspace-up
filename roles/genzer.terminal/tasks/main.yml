@@ -1,1 +1,2 @@
 - import_tasks: install_tmux_plugin.yaml
+- import_tasks: install_zimfw.yaml

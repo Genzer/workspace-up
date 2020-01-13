@@ -1,0 +1,125 @@
+- name: Install zimfw according to Manual Installation Guide
+  tags:
+    - zimfw
+  block:
+    - name: Ensure ~/.zim exists
+      file:
+        path: ~/.zim
+        state: directory
+
+    - name: Install zimfw.zsh into ~/.zim/zimfw.zsh
+      get_url:
+        url: https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+        dest: ~/.zim/zimfw.zsh
+        owner: "{{ lookup('env','USER') }}"
+        group: "staff" #MacOS use group `staff` for all users by defaults
+
+    - name: Ensure ~/.zshenv exists
+      file:
+        path: ~/.zshenv
+        state: file
+
+    - name: Add zimfw configuration to ~/.zshenv
+      blockinfile:
+        path: ~/.zshenv
+        marker: "#{mark} zimfw configuration for .zshenv"
+        block: |
+
+          # ╔═════════════════════════════════╗
+          # ║   .zshenv is always sourced     ║
+          # ╚═════════════════════════════════╝
+
+          # Using zimfw for managing zsh plugins
+          ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+          
+          # This line is intentionally added.
+    
+    - name: Initialize zimfw in ~/.zshrc
+      blockinfile:
+        path: ~/.zshrc
+        marker: "#{mark} zimfw installation in .zshrc"
+        block: |
+
+          # ╔═════════════════════════════════╗
+          # ║       zimfw installation        ║
+          # ╚═════════════════════════════════╝
+
+          # Copied from zimfw installation template.
+
+          if [[ ${ZIM_HOME}/init.zsh -ot ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
+            # Update static initialization script if it's outdated, before sourcing it
+            source ${ZIM_HOME}/zimfw.zsh init -q
+          fi
+
+          source ${ZIM_HOME}/init.zsh
+
+          # --------------------------------
+          #  zsh-history-substring-search
+          # --------------------------------
+
+          # Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+          bindkey '^[[A' history-substring-search-up
+          bindkey '^[[B' history-substring-search-down
+
+          # Bind up and down keys
+          zmodload -F zsh/terminfo +p:terminfo
+          if [[ -n ${terminfo[kcuu1]} && -n ${terminfo[kcud1]} ]]; then
+            bindkey ${terminfo[kcuu1]} history-substring-search-up
+              bindkey ${terminfo[kcud1]} history-substring-search-down
+              fi
+
+              bindkey '^P' history-substring-search-up
+              bindkey '^N' history-substring-search-down
+              bindkey -M vicmd 'k' history-substring-search-up
+              bindkey -M vicmd 'j' history-substring-search-down
+          
+          # This line is intentionally added.
+
+    - name: Configure ~/.zimrc
+      blockinfile:
+        path: ~/.zimrc
+        marker: "#{mark} zimfw actual rc"
+        block: |
+
+          # -------
+          # Modules
+          # -------
+
+          # Sets sane Zsh built-in environment options.
+          zmodule environment
+          # Provides handy git aliases and functions.
+          zmodule git
+          # Applies correct bindkeys for input events.
+          zmodule input
+          # Sets a custom terminal title.
+          zmodule termtitle
+          # Utility aliases and functions. Adds colour to ls, grep and less.
+          zmodule utility
+
+          export USER_COLOR=009
+
+          #
+          # Prompt
+          #
+          # Exposes git repository status information to prompts.
+          zmodule git-info
+          # A customizable version of steeef's prompt theme.
+          #zmodule steeef
+          #zmodule classyTouch-genzer
+          zmodule romkatv/powerlevel10k
+
+          # Additional completion definitions for Zsh.
+          zmodule zsh-users/zsh-completions
+          # Enables and configures smart and extensive tab completion.
+          # completion must be sourced after zsh-users/zsh-completions
+          zmodule completion
+          # Fish-like autosuggestions for Zsh.
+          zmodule zsh-users/zsh-autosuggestions
+          # Fish-like syntax highlighting for Zsh.
+          # zsh-users/zsh-syntax-highlighting must be sourced after completion
+          zmodule zsh-users/zsh-syntax-highlighting
+          # Fish-like history search (up arrow) for Zsh.
+          # zsh-users/zsh-history-substring-search must be sourced after zsh-users/zsh-syntax-highlighting
+          zmodule zsh-users/zsh-history-substring-search
+
+          # This line is intentionally added.
