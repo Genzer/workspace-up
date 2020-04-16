@@ -99,6 +99,7 @@
       - ngrok
       - webex-meetings
       - microsoft-teams
+      - pgadmin4
 
   pre_tasks:
     - name: Ensure ask-become-pass is working
