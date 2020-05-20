@@ -5,6 +5,7 @@
   vars:
     homebrew_taps:
       - homebrew/core
+      - mike-engel/jwt-cli
 
     homebrew_installed_packages:
       - { name: vim, install_option: "with-override-system-vim" }
@@ -45,6 +46,9 @@
       - graphviz
       # A useful to see Disk Usage
       - ncdu
+      - jwt-cli
+      - bat
+      - openshift-cli
 
     homebrew_uninstalled_packages:
       # antigen slows down the startup time of zsh.
