@@ -1,13 +1,10 @@
-- name: Install all applications using Homebrew cask.
+- name: Install all commands using Homebrew.
   hosts: localhost
   tags:
-    - installing-apps
+    - commands
   vars:
-
     homebrew_taps:
       - homebrew/core
-      - homebrew/cask-versions
-      - homebrew/cask-fonts
 
     homebrew_installed_packages:
       - { name: vim, install_option: "with-override-system-vim" }
@@ -31,12 +28,43 @@
       - todo-txt
       - watch
       - tree
+      - jq
+      - python-yq
+      - go
+      - gnu-sed
+      - maven
+      - wget
+      - gradle
+      - groovy
+      - asciinema
+      - htop
+      # For developing AWS Lambda
+      - serverless
+      - python@3.8
+      # VSCode PlantUML Preview
+      - graphviz
+      # A useful to see Disk Usage
+      - ncdu
 
     homebrew_uninstalled_packages:
       # antigen slows down the startup time of zsh.
       - antigen
       - powerlevel9k
+  pre_tasks:
+    - name: Ensure ask-become-pass is working
+      shell: id
+      become: True
+  roles:
+    - geerlingguy.homebrew
 
+- name: Installing MacOS Applications using Homebrew.
+  hosts: localhost
+  tags:
+    - apps
+  vars:
+    homebrew_taps:
+      - homebrew/cask-versions
+      - homebrew/cask-fonts
     homebrew_cask_apps:
       - google-chrome
       - sublime-text 
@@ -66,12 +94,16 @@
       - adobe-acrobat-reader
       - robo-3t
       - font-hack-nerd-font
+      - angry-ip-scanner
+      - visualvm
+      - ngrok
+      - webex-meetings
+      - microsoft-teams
 
   pre_tasks:
     - name: Ensure ask-become-pass is working
       shell: id
       become: True
-
   roles:
     - geerlingguy.homebrew
 
@@ -84,6 +116,14 @@
       tags:
         - workspace
 
+    - role: genzer.java
+      tags:
+        - java
+      vars:
+        jdk_versions:
+          - adoptopenjdk8
+          - adoptopenjdk13
+
     - role: genzer.terminal
       tags:
         - terminal
@@ -93,4 +133,11 @@
 
     - role: genzer.vscode
       tags: ['vscode']
+
+  tasks:
+    - import_role:
+        name: genzer.java
+        tasks_from: install_zulu_jdk.yaml
+      tags:
+        - java.zulu
 

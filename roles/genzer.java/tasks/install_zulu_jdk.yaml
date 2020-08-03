@@ -1,0 +1,30 @@
+- name: Installing Zulu JDK including JavaFX (OpenJFX)
+  tags:
+    - jdk.zulu
+  vars:
+    state: 'present' # or 'absent'
+  block:
+    - name: Download Zulu 8.44.0.13 (JDK 8u242b20 including OpenJFX)
+      when: state == 'present'
+      get_url:
+        url: https://cdn.azul.com/zulu/bin/zulu8.44.0.13-ca-fx-jdk8.0.242-macosx_x64.tar.gz
+        dest: /tmp/zulu-8.44.0.13-jdk.tar.gz
+        checksum: sha256:1f1c3927ce3b3cdcbfb5b482eba7c8f6100f7e51b1dd15dcc47fcbac3e2dc98d
+
+    - name: Ensure installation directory exists
+      file:
+        state: directory
+        path: "/Library/Java/JavaVirtualMachines/zulu-8.44.0.13.jdk"
+      become: true
+      
+    - name: "Install Zulu JDK 8.44.0.13"
+      when: state == 'present'
+      command: "tar -xzf /tmp/zulu-8.44.0.13-jdk.tar.gz --strip-components 1 -C /Library/Java/JavaVirtualMachines/zulu-8.44.0.13.jdk"
+      # `unarchive` requires GNU tar as `gtar`.
+      become: true
+
+    - name: "Uninstall OpenJDK 8.46.0.19"
+      when: state == 'absent'
+      file:
+        state: absent
+        path: "/Library/Java/JavaVirtualMachines/zulu-8.46.0.19.jdk"

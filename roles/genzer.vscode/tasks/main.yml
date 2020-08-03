@@ -11,9 +11,17 @@
   set_fact:
     installed_vsc_extensions: "{{ installed_vsc_extensions_check.stdout.split('\n') | list }}"
 
+- name: Uninstall Visual Studio Code Extensions
+  shell: code --uninstall-extension {{ item }}
+  register: vscode_uninstalled_extensions
+  changed_when: "'was successfully uninstalled' in vscode_uninstalled_extensions.stdout"
+  with_items:
+    - "{{ default_uninstalled_extensions | intersect(installed_vsc_extensions) }}"
+
 - name: Installing Visual Studio Code Extensions
   shell: code --install-extension {{ item }}
   register: vscode_installed_extension
   changed_when: "'was successfully installed' in vscode_installed_extension.stdout"
   with_items:
     - "{{ default_vscode_extensions | difference(installed_vsc_extensions) }}"
+

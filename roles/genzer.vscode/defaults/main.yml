@@ -37,7 +37,6 @@ default_vscode_extensions:
   - redhat.vscode-yaml
   - secanis.jenkinsfile-support
   - shanoor.vscode-nginx
-  - tht13.python
   - trixnz.vscode-lua
   - VisualStudioExptTeam.vscodeintellicode
   - vscjava.vscode-java-debug
@@ -54,3 +53,8 @@ default_vscode_extensions:
   - william-voyek.vscode-nginx
   - YouMayCallMeV.vscode-java-saber
   - mechatroner.rainbow-csv
+  - bungcip.better-toml
+
+default_uninstalled_extensions:
+  - tht13.python
+

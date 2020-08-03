@@ -1,0 +1,36 @@
+- name: Check if RVM is installed
+  shell: command -v rvm >/dev/null 2>&1
+  register: rvm_check
+  changed_when: False
+
+- name: Install Ruby Version Manager
+  when: rvm_check.rc == 1 or rvm_check.rc == 127
+  block:
+    - name: Install Ruby Version Manager latest
+      shell: curl -sSL https://get.rvm.io | bash
+      args:
+        warn: False
+    
+    - name: Update ~/.zshrc
+      blockinfile:
+        path: ~/.zshrc
+        marker: "#{mark} rvm installation in .zshrc by Ansible"
+        block: |
+
+          #------------------------
+          # Ruby Version Manager
+          #------------------------
+          # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+          export PATH="$PATH:$HOME/.rvm/bin"
+
+          # Source rvm
+          source $HOME/.rvm/scripts/rvm
+          
+          # This line is intentionally added.
+
+    - name: Install Ruby 2.7.0 and set as default
+      shell: rvm install 2.7.0
+      register: installing_ruby
+      changed_when: "'Already installed ruby-2.7.0' not in installing_ruby.stdout"
+      args:
+        executable: /bin/zsh

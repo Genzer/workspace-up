@@ -1,0 +1,21 @@
+- name: Installing AdoptOpenJDK via homebrew
+  tags:
+    - jdk
+  vars:
+    # See https://github.com/AdoptOpenJDK/homebrew-openjdk for a list of supported versions
+    jdk_version: ''
+    state: 'present' # or 'absent'
+  block:
+    - name: Tap AdoptOpenJDK/openjdk
+      homebrew_tap:
+        name: AdoptOpenJDK/openjdk
+      
+    - name: "Install OpenJDK {{ jdk_version }}"
+      when: state == 'present'
+      homebrew_cask:
+        name: "adoptopenjdk/openjdk/{{ jdk_version }}"
+
+    - name: "Uninstall OpenJDK {{ jdk_version }}"
+      when: state == 'absent'
+      homebrew_cask:
+        name: "adoptopenjdk/openjdk/{{ jdk_version }}"

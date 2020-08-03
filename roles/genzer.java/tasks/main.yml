@@ -1,0 +1,13 @@
+- name: Install JDK binaries
+  when: jdk_versions is defined
+  include_tasks: install_jdk.yaml
+  vars:
+    jdk_version: "{{ item }}"
+  loop: "{{ jdk_versions }}"
+
+- name: Uninstall JDK binaries
+  when: uninstalled_jdk_versions is defined
+  include_tasks: install_jdk.yaml
+  vars:
+    jdk_version: "{{ item }}"
+  loop: "{{ uninstalled_jdk_versions }}"
