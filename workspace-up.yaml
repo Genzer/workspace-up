@@ -49,6 +49,9 @@
       - jwt-cli
       - bat
       - openshift-cli
+      # Replace old Bash (3.2) on macOS
+      # with newer version.
+      - bash
 
     homebrew_uninstalled_packages:
       # antigen slows down the startup time of zsh.
@@ -104,6 +107,11 @@
       - webex-meetings
       - microsoft-teams
       - pgadmin4
+      - font-firacode-nerd-font
+      - font-hasklug-nerd-font
+      - font-jetbrains-mono
+      - font-jetbrainsmono-nerd-font
+      - telegram-desktop
 
   pre_tasks:
     - name: Ensure ask-become-pass is working
