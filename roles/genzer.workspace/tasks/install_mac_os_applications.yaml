@@ -1,7 +1,7 @@
 - name: Install {{ app }} from AppStore
   block:
     - name: Check if {{ app }} is installed
-      shell: "mas list | grep -oq '{{ app }}'"
+      shell: "mas list | grep -oq '.*{{ app }}.*'"
       register: mas_install_check
       ignore_errors: True
       changed_when: False

@@ -19,4 +19,4 @@
     app: "{{ item }}"
   loop:
     - "Be Focused"
-    - "Microsoft Remote Desktop 10"
+    - "Microsoft Remote Desktop"

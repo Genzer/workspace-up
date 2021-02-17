@@ -24,7 +24,6 @@
       # https://github.com/mas-cli/mas
       - mas
       - hadolint
-      - nvm
       - findutils
       - todo-txt
       - watch
@@ -52,11 +51,17 @@
       # Replace old Bash (3.2) on macOS
       # with newer version.
       - bash
+      # A lighter and faster version of `nvm`.
+      - fnm
+      # A better replacement for df. Because df on MacOS sucks.
+      - duf
 
     homebrew_uninstalled_packages:
       # antigen slows down the startup time of zsh.
       - antigen
       - powerlevel9k
+      - nvm
+
   pre_tasks:
     - name: Ensure ask-become-pass is working
       shell: id
@@ -135,6 +140,7 @@
       vars:
         jdk_versions:
           - adoptopenjdk8
+          - adoptopenjdk11
           - adoptopenjdk13
 
     - role: genzer.terminal
