@@ -1,8 +1,9 @@
 - name: Check if colorls 1.3.2 is installed
   shell: gem list --local -i colorls -v 1.3.2
   register: colorls_check
+  ignore_errors: True
   changed_when: False
 
 - name: Install colorls to enhance listing files & dirs WITH COLORS
   when: colorls_check.stdout == 'false'
-  shell: gem install colorls
+  shell: rvm use default && gem install colorls

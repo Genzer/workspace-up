@@ -1,6 +1,7 @@
 - name: Check if RVM is installed
   shell: command -v rvm >/dev/null 2>&1
   register: rvm_check
+  ignore_errors: True
   changed_when: False
 
 - name: Install Ruby Version Manager
@@ -29,7 +30,7 @@
           # This line is intentionally added.
 
     - name: Install Ruby 2.7.0 and set as default
-      shell: rvm install 2.7.0
+      shell: rvm install 2.7.0 && rvm use --default 2.7.0
       register: installing_ruby
       changed_when: "'Already installed ruby-2.7.0' not in installing_ruby.stdout"
       args:

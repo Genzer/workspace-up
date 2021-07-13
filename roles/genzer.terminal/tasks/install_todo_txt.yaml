@@ -1,0 +1,8 @@
+- name: Install todo.txt
+  tags:
+    - todo.txt
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+    ssh_opts: '-o StrictHostKeyChecking=no'
+    update: False

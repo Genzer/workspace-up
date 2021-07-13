@@ -17,7 +17,7 @@
     - name: Ensure ~/.zshenv exists
       file:
         path: ~/.zshenv
-        state: file
+        state: touch
 
     - name: Add zimfw configuration to ~/.zshenv
       blockinfile:
@@ -74,6 +74,11 @@
               bindkey -M vicmd 'j' history-substring-search-down
           
           # This line is intentionally added.
+
+    - name: Ensure ~/.zimrc exists
+      file:
+        path: ~/.zimrc
+        state: touch
 
     - name: Configure ~/.zimrc
       blockinfile:

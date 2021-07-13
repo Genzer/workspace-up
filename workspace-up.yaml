@@ -10,6 +10,7 @@
     homebrew_installed_packages:
       - { name: vim, install_option: "with-override-system-vim" }
       - git
+      - git-lfs
       - tmux
       - zsh
       - thefuck
@@ -41,6 +42,7 @@
       # For developing AWS Lambda
       - serverless
       - python@3.8
+      - python@3.9
       # VSCode PlantUML Preview
       - graphviz
       # A useful to see Disk Usage
@@ -55,6 +57,15 @@
       - fnm
       # A better replacement for df. Because df on MacOS sucks.
       - duf
+      # GitHub CLI
+      - gh
+      - helm
+      # aria2 is a file-downloading cli that support mutliple
+      # connections (unlike curl or wget).
+      - aria2
+      # MacOS Catalina uses GNU Make 3.18 which is old.
+      # Install later version v4.x
+      - make
 
     homebrew_uninstalled_packages:
       # antigen slows down the startup time of zsh.
@@ -98,9 +109,9 @@
       - onedrive
       - keycastr
       - docker
-      - balsamiq-mockups
-      - font-fira-mono
-      - font-fira-mono-for-powerline
+      - balsamiq-wireframes
+        #- font-fira-mono
+        #- font-fira-mono-for-powerline
       - google-backup-and-sync
       - gas-mask
       - adobe-acrobat-reader
@@ -112,11 +123,13 @@
       - webex-meetings
       - microsoft-teams
       - pgadmin4
-      - font-firacode-nerd-font
-      - font-hasklug-nerd-font
+        #- font-firacode-nerd-font
+        #- font-hasklug-nerd-font
       - font-jetbrains-mono
-      - font-jetbrainsmono-nerd-font
+      - font-jetbrains-mono-nerd-font
       - telegram-desktop
+      - shiftit
+      - fanny
 
   pre_tasks:
     - name: Ensure ask-become-pass is working
@@ -132,7 +145,7 @@
   roles:
     - role: genzer.workspace
       tags:
-        - workspace
+        - workspace.apps
 
     - role: genzer.java
       tags:
