@@ -8,12 +8,16 @@
       - mike-engel/jwt-cli
 
     homebrew_installed_packages:
-      - { name: vim, install_option: "with-override-system-vim" }
+      # Prefer neovim from now on
+      # - { name: vim, install_option: "with-override-system-vim" }
+      - neovim
       - git
       - git-lfs
       - tmux
       - zsh
-      - thefuck
+      # I no longer loves thefuck.
+      # It seems to become less accurate to suggest correct commands.
+      # - thefuck
       - ack
       - jenv
       - awscli
@@ -30,7 +34,8 @@
       - watch
       - tree
       - jq
-      - python-yq
+      # Previously python-yq but I changed
+      - yq
       - go
       - gnu-sed
       - maven
@@ -43,6 +48,7 @@
       - serverless
       - python@3.8
       - python@3.9
+      - python@3.10
       # VSCode PlantUML Preview
       - graphviz
       # A useful to see Disk Usage
@@ -66,12 +72,20 @@
       # MacOS Catalina uses GNU Make 3.18 which is old.
       # Install later version v4.x
       - make
+      # Starship works wonder with Alacritty
+      - starship
+      - hurl
+      - xsv
+      - neofetch
+      - aws-vault
 
     homebrew_uninstalled_packages:
       # antigen slows down the startup time of zsh.
       - antigen
       - powerlevel9k
       - nvm
+      - vim
+      - thefuck
 
   pre_tasks:
     - name: Ensure ask-become-pass is working
@@ -91,7 +105,9 @@
     homebrew_cask_apps:
       - google-chrome
       - sublime-text 
-      - iterm2
+      # Favor Alacritty
+      # - iterm2
+      - alacritty
       - skype
       - postman
       - visual-studio-code
@@ -100,7 +116,7 @@
       - vlc
       - keka
       - the-unarchiver
-      - franz
+      # - franz
       - xquartz
       - typora
       - teamviewer
@@ -130,6 +146,10 @@
       - telegram-desktop
       - shiftit
       - fanny
+      - vitals
+      - vanilla
+      - obsidian
+      - brave-browser
 
   pre_tasks:
     - name: Ensure ask-become-pass is working
@@ -155,6 +175,7 @@
           - adoptopenjdk8
           - adoptopenjdk11
           - adoptopenjdk13
+          - adoptopenjdk17
 
     - role: genzer.terminal
       tags:

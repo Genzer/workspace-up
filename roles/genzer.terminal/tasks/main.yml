@@ -1,4 +1,6 @@
 - import_tasks: install_tmux_plugin.yaml
 - import_tasks: install_zimfw.yaml
-- import_tasks: install_ruby_version_manager.yaml
-- import_tasks: install_colorls.yaml
+# Will try using asdf
+# - import_tasks: install_ruby_version_manager.yaml
+# Never used
+# - import_tasks: install_colorls.yaml

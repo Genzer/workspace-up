@@ -5,8 +5,9 @@
   register: aws_check
   changed_when: False
 
-- name: Installing AWS CLI
-  shell: python3 -m pip install awscli
+- name: Ensure awscli is installed
+  fail:
+    msg: "awscli has to be installed by using Homebrew"
   when: aws_check.rc == 1 or aws_check.rc == 127 or aws_check.stdout is version('1.16.310', '<=')
 
 - name: Installing docker-credential-helper-ecr
@@ -25,5 +26,6 @@
       {
         "credHelpers": {
           "031813119665.dkr.ecr.ap-southeast-1.amazonaws.com": "ecr-login"
+          "031813119665.dkr.ecr.eu-central-1.amazonaws.com": "ecr-login"
         }
       }
