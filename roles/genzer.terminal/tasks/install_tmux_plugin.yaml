@@ -6,3 +6,8 @@
     dest: ~/.tmux/plugins/tpm
     ssh_opts: '-o StrictHostKeyChecking=no'
     update: False
+
+- name: Install Powerline
+  tags:
+    - tmux.powerline
+  ansible.builtin.shell: python3.8 -m pip install powerline-status

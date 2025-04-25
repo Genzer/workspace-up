@@ -19,7 +19,8 @@
       # It seems to become less accurate to suggest correct commands.
       # - thefuck
       - ack
-      - jenv
+      # Prefer asdf from jenv
+      # - jenv
       - awscli
       # An awesome utility to ovewrite default `/bin/rm`
       # so that deleted files/directories go to the Trash
@@ -78,6 +79,12 @@
       - xsv
       - neofetch
       - aws-vault
+      - coreutils
+      - croc
+      - kubeseal
+      # Use for sending email from the terminal.
+      - swaks
+      - fzf
 
     homebrew_uninstalled_packages:
       # antigen slows down the startup time of zsh.
@@ -86,6 +93,8 @@
       - nvm
       - vim
       - thefuck
+      - shellcheck
+      - jenv
 
   pre_tasks:
     - name: Ensure ask-become-pass is working
@@ -111,7 +120,7 @@
       - skype
       - postman
       - visual-studio-code
-      - slack
+      # - slack
       - viscosity
       - vlc
       - keka
@@ -128,7 +137,10 @@
       - balsamiq-wireframes
         #- font-fira-mono
         #- font-fira-mono-for-powerline
-      - google-backup-and-sync
+      # Google killed Backup and Sync and replaced it
+      # with Google Drive for Desktop. 
+      #- google-backup-and-sync
+      - google-drive
       - gas-mask
       - adobe-acrobat-reader
       - robo-3t
@@ -150,6 +162,11 @@
       - vanilla
       - obsidian
       - brave-browser
+      - openkey
+      # Switching kubernetes' contexts and namespaces easier
+      - kubectx
+
+
 
   pre_tasks:
     - name: Ensure ask-become-pass is working
@@ -175,7 +192,6 @@
           - adoptopenjdk8
           - adoptopenjdk11
           - adoptopenjdk13
-          - adoptopenjdk17
 
     - role: genzer.terminal
       tags:

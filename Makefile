@@ -1,9 +1,9 @@
 .PHONY: all
 run: deps
-	.venv/bin/ansible-playbook workspace-up.yaml --ask-become-pass $(ARGS)
+	.venv/bin/ansible-playbook -vvv workspace-up.yaml --ask-become-pass $(ARGS)
 
 .venv:
-	python3.8 -m venv .venv
+	python3 -m venv .venv
 
 .PHONY: deps
 deps: .venv

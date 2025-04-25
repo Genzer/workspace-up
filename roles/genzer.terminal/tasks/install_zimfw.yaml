@@ -111,7 +111,7 @@
           # A customizable version of steeef's prompt theme.
           #zmodule steeef
           #zmodule classyTouch-genzer
-          zmodule romkatv/powerlevel10k
+          #zmodule romkatv/powerlevel10k
 
           # Additional completion definitions for Zsh.
           zmodule zsh-users/zsh-completions
@@ -127,4 +127,6 @@
           # zsh-users/zsh-history-substring-search must be sourced after zsh-users/zsh-syntax-highlighting
           zmodule zsh-users/zsh-history-substring-search
 
+          zmodule ssh
+          zmodule mroth/evalcache
           # This line is intentionally added.

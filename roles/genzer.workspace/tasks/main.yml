@@ -1,6 +1,6 @@
 - name: Create symlink ~/work/journals to Google Drive journals
   file:
-    src: "{{ lookup('env', 'HOME') }}/genzer_hawker/google_drive/genzerhawker/journals"
+    src: "/Volumes/GoogleDrive/My\ Drive/genzerhawker/journals"
     dest: "{{ lookup('env', 'HOME') }}/work/journals"
     state: link
 
@@ -21,3 +21,5 @@
   loop:
     - { id: "961632517", name: "Be Focused Pro" }
     - { id: "1295203466", name: "Microsoft Remote Desktop" }
+    - { id: "1553936137", name: "Azure VPN Client" }
+    - { id: "1423210932", name: "Flow" }

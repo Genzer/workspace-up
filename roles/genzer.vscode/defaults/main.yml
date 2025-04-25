@@ -13,7 +13,6 @@ default_vscode_extensions:
   - foxundermoon.shell-format
   - frankschmid.serverless-vscode
   - Gruntfuggly.vscode-journal-view
-  - haaaad.ansible
   - ithildir.java-properties
   - janjoerke.jenkins-pipeline-linter-connector
   - jebbs.plantuml
@@ -47,7 +46,6 @@ default_vscode_extensions:
   - vscjava.vscode-spring-boot-dashboard
   - vscjava.vscode-spring-initializr
   - vscode-icons-team.vscode-icons
-  - vscoss.vscode-ansible
   - wayou.vscode-todo-highlight
   - wholroyd.jinja
   - william-voyek.vscode-nginx
@@ -57,4 +55,6 @@ default_vscode_extensions:
 
 default_uninstalled_extensions:
   - tht13.python
+  - vscoss.vscode-ansible
+  - haaaad.ansible
 
