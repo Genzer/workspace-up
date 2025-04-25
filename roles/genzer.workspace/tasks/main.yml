@@ -13,13 +13,3 @@
 - name: set MacOS to show hidden files/directories
   when: finder_show_all_files.stdout != '1'
   shell: defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder
-
-- name: Install Mac OS Applications from AppStore
-  include_tasks: install_mac_os_applications.yaml
-  vars:
-    app: "{{ item }}"
-  loop:
-    - { id: "961632517", name: "Be Focused Pro" }
-    - { id: "1295203466", name: "Microsoft Remote Desktop" }
-    - { id: "1553936137", name: "Azure VPN Client" }
-    - { id: "1423210932", name: "Flow" }

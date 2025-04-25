@@ -1,21 +1,3 @@
-- name: Check installed awscli
-  shell: >
-    command -v aws >/dev/null 2>&1 && aws --version \
-      | grep --only-matching 'aws-cli\/.*\sPython' | sed 's/aws-cli\///g' | sed 's/ Python//g'
-  register: aws_check
-  changed_when: False
-
-- name: Ensure awscli is installed
-  fail:
-    msg: "awscli has to be installed by using Homebrew"
-  when: aws_check.rc == 1 or aws_check.rc == 127 or aws_check.stdout is version('1.16.310', '<=')
-
-- name: Installing docker-credential-helper-ecr
-  homebrew:
-    name: docker-credential-helper-ecr
-    state: present
-    update_homebrew: True
-
 - name: Configure ~/.docker/config.json to use the ecr-login
   import_role:
     name: genzer.utils
